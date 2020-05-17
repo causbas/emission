@@ -1,0 +1,129 @@
+<!DOCTYPE: html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Emissionsrechner</title>
+  </head>
+
+  <body>
+    <h2>Eingabedaten</h2>
+    <form>
+      <table>
+        <tbody>
+          <tr>
+            <td>Bevölkerung:</td>
+            <td><input name="population" type="number" value="693000" required></td>
+          </tr>
+          <tr>
+            <td>Emission:</td>
+            <td><input name="emission" type="number" value="6400000" required></td>
+            <td>Tonnen CO2/Jahr</td>
+          </tr>
+          <tr>
+            <td>Erlaubte Emissionen orientieren sich am:</td>
+            <td>
+              <div>
+                <input
+                  type="radio"
+                  id="allowed-emission-population"
+                  name="allowed-emission"
+                  required checked>
+                <label for="allowed-emission-population">Bevölkerungsanteil</label>
+              </div>
+              <div>
+                <input type="radio" id="allowed-emission-proportion" name="allowed-emission" required>
+                <label for="allowed-emission-proportion">Momentanen Zustand</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Maximaler Temperaturanstieg:</td>
+            <td>
+              <div>
+                <input type="radio" id="temperature-rise-1-5" name="temperature-rise" required>
+                <label for="temperature-rise-1-5">1,5</label>
+              </div>
+              <div>
+                <input type="radio" id="temperature-rise-1-6" name="temperature-rise" required>
+                <label for="temperature-rise-1-6">1,6</label>
+              </div>
+              <div>
+                <input type="radio" id="temperature-rise-1-75" name="temperature-rise" required checked>
+                <label for="temperature-rise-1-75">1,75</label>
+              </div>
+              <div>
+                <input type="radio" id="temperature-rise-1-87" name="temperature-rise" required>
+                <label for="temperature-rise-1-87">1,87</label>
+              </div>
+              <div>
+                <input type="radio" id="temperature-rise-2" name="temperature-rise" required>
+                <label for="temperature-rise-2">2</label>
+              </div>
+            </td>
+            <td>°C</td>
+          </tr>
+          <tr>
+            <td>Wahrscheinlichkeit:</td>
+            <td>
+              <div>
+                <input type="radio" id="probability-33" name="probability" required>
+                <label for="probability-33">33</label>
+              </div>
+              <div>
+                <input type="radio" id="probability-50" name="probability" required>
+                <label for="probability-50">50</label>
+              </div>
+              <div>
+                <input type="radio" id="probability-67" name="probability" required checked>
+                <label for="probability-67">67</label>
+              </div>
+            </td>
+            <td>%</td>
+          </tr>
+        </tbody>
+      </table>
+
+    <button type="submit">Berechnen</button>
+    </form>
+
+    <h2>Ergebnis</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>2020</th>
+          <th>2021</th>
+          <th>2022</th>
+          <th>2023</th>
+          <th>2024</th>
+          <th>2025</th>
+          <th>2026</th>
+          <th>2027</th>
+          <th>2028</th>
+          <th>2029</th>
+          <th>2030</th>
+          <th>2050</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0.0062</td>
+          <td>0.0060</td>
+          <td>0.0058</td>
+          <td>0.0056</td>
+          <td>0.0055</td>
+          <td>0.0053</td>
+          <td>0.0051</td>
+          <td>0.0049</td>
+          <td>0.0047</td>
+          <td>0.0045</td>
+          <td>0.0043</td>
+          <td>0.0005</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+    0-Emission im Jahr: 2052.8
+    </p>
+  </body>
+</html>
