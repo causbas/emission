@@ -147,7 +147,7 @@
     <button type="submit">Berechnen</button>
     </form>
 
-    <div class="hidden">
+    <div id="result-block" class="hidden">
       <h2>Ergebnis</h2>
       <table>
         <thead>
@@ -219,6 +219,9 @@
 
       const zeroEmissionYear = document.querySelector("#zero-emission-year");
       zeroEmissionYear.innerText = 2052.8;
+
+      const resultBlock = document.querySelector("#result-block");
+      resultBlock.className = resultBlock.className.replace("hidden", "");
     </script>
   </body>
 </html>
