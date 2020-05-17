@@ -32,7 +32,7 @@
                 <input
                   type="radio"
                   id="allowed-emission-population"
-                  name="allowed-emission"
+                  name="allowed-emission-mode"
                   value="population"
                   required checked
                 >
@@ -41,7 +41,7 @@
               <div>
                 <input type="radio"
                   id="allowed-emission-proportion"
-                  name="allowed-emission"
+                  name="allowed-emission-mode"
                   value="proportion"
                   required
                 >
@@ -195,33 +195,49 @@
 
       const population = urlParams.get("population");
       const emission = urlParams.get("emission");
-      const allowedEmission = urlParams.get("allowed-emission");
+      const allowedEmissionMode = urlParams.get("allowed-emission-mode");
       const temperatureRise = urlParams.get("temperature-rise");
       const probability = urlParams.get("probability");
 
-      const results = [
-        0.0062,
-        0.0060,
-        0.0058,
-        0.0056,
-        0.0055,
-        0.0053,
-        0.0051,
-        0.0049,
-        0.0047,
-        0.0045,
-        0.0043,
-        0.0005,
-      ]
+      const results = computeResults(
+        population, emission, allowedEmissionMode, temperatureRise, probability
+      );
 
-      const resultElements = document.querySelector("#results-row").children;
-      results.forEach((result, i) => resultElements[i].innerText = result);
+      const resultRowElements = document.querySelector("#results-row").children;
+      results.allowedEmissions.forEach((allowedEmission, i) =>
+        resultRowElements[i].innerText = allowedEmission);
 
-      const zeroEmissionYear = document.querySelector("#zero-emission-year");
-      zeroEmissionYear.innerText = 2052.8;
+      const zeroEmissionYearElement = document.querySelector("#zero-emission-year");
+      zeroEmissionYearElement.innerText = results.zeroEmissionYear;
 
-      const resultBlock = document.querySelector("#result-block");
-      resultBlock.className = resultBlock.className.replace("hidden", "");
+      const resultBlockElement = document.querySelector("#result-block");
+      resultBlockElement.className = resultBlockElement.className.replace("hidden", "");
+
+      function computeResults(
+        population,
+        emission,
+        allowedEmissionMode,
+        temperatureRise,
+        probability,
+      ) {
+        return {
+          allowedEmissions: [
+            0.0062,
+            0.0060,
+            0.0058,
+            0.0056,
+            0.0055,
+            0.0053,
+            0.0051,
+            0.0049,
+            0.0047,
+            0.0045,
+            0.0043,
+            0.0005,
+          ],
+          zeroEmissionYear: 2052.8,
+        }
+      }
     </script>
   </body>
 </html>
