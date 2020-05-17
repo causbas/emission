@@ -3,6 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title>Emissionsrechner</title>
+
+    <style>
+      .hidden {
+        visibility: hidden;
+      }
+    </style>
   </head>
 
   <body>
@@ -141,44 +147,47 @@
     <button type="submit">Berechnen</button>
     </form>
 
-    <h2>Ergebnis</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>2020</th>
-          <th>2021</th>
-          <th>2022</th>
-          <th>2023</th>
-          <th>2024</th>
-          <th>2025</th>
-          <th>2026</th>
-          <th>2027</th>
-          <th>2028</th>
-          <th>2029</th>
-          <th>2030</th>
-          <th>2050</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>0.0062</td>
-          <td>0.0060</td>
-          <td>0.0058</td>
-          <td>0.0056</td>
-          <td>0.0055</td>
-          <td>0.0053</td>
-          <td>0.0051</td>
-          <td>0.0049</td>
-          <td>0.0047</td>
-          <td>0.0045</td>
-          <td>0.0043</td>
-          <td>0.0005</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="hidden">
+      <h2>Ergebnis</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>2020</th>
+            <th>2021</th>
+            <th>2022</th>
+            <th>2023</th>
+            <th>2024</th>
+            <th>2025</th>
+            <th>2026</th>
+            <th>2027</th>
+            <th>2028</th>
+            <th>2029</th>
+            <th>2030</th>
+            <th>2050</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0.0062</td>
+            <td>0.0060</td>
+            <td>0.0058</td>
+            <td>0.0056</td>
+            <td>0.0055</td>
+            <td>0.0053</td>
+            <td>0.0051</td>
+            <td>0.0049</td>
+            <td>0.0047</td>
+            <td>0.0045</td>
+            <td>0.0043</td>
+            <td>0.0005</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <p>
-    0-Emission im Jahr: 2052.8
-    </p>
+      <p>
+      0-Emission im Jahr: 2052.8
+      </p>
+    </div>
+
   </body>
 </html>
