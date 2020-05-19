@@ -1,32 +1,28 @@
-const urlParams = new URLSearchParams(window.location.search);
+const urlParamValues = getUrlParamValues();
+const results = computeResults(urlParamValues);
 
-const population = urlParams.get("population");
-const emission = urlParams.get("emission");
-const allowedEmissionMode = urlParams.get("allowed-emission-mode");
-const temperatureRise = urlParams.get("temperature-rise");
-const probability = urlParams.get("probability");
+publishResults(results);
+showResults();
 
-const results = computeResults(
-    population, emission, allowedEmissionMode, temperatureRise, probability
-);
+function getUrlParamValues() {
+    const urlParams = new URLSearchParams(window.location.search);
 
-const resultRowElements = document.querySelector("#results-row").children;
-results.allowedEmissions.forEach((allowedEmission, i) =>
-    resultRowElements[i].innerText = allowedEmission);
+    return {
+        population: urlParams.get("population"),
+        emission: urlParams.get("emission"),
+        allowedEmissionMode: urlParams.get("allowed-emission-mode"),
+        temperatureRise: urlParams.get("temperature-rise"),
+        probability: urlParams.get("probability"),
+    }
+}
 
-const zeroEmissionYearElement = document.querySelector("#zero-emission-year");
-zeroEmissionYearElement.innerText = results.zeroEmissionYear;
-
-const resultBlockElement = document.querySelector("#result-block");
-resultBlockElement.className = resultBlockElement.className.replace("hidden", "");
-
-function computeResults(
+function computeResults({
     population,
     emission,
     allowedEmissionMode,
     temperatureRise,
     probability,
-) {
+}) {
     return {
         allowedEmissions: [
             0.0062,
@@ -44,4 +40,18 @@ function computeResults(
         ],
         zeroEmissionYear: 2052.8,
     }
+}
+
+function publishResults({ allowedEmissions, zeroEmissionYear }) {
+    const resultRowElements = document.querySelector("#results-row").children;
+    allowedEmissions.forEach((allowedEmission, i) =>
+        resultRowElements[i].innerText = allowedEmission);
+
+    const zeroEmissionYearElement = document.querySelector("#zero-emission-year");
+    zeroEmissionYearElement.innerText = zeroEmissionYear;
+}
+
+function showResults() {
+    const resultBlockElement = document.querySelector("#result-block");
+    resultBlockElement.className = resultBlockElement.className.replace("hidden", "");
 }
