@@ -1,3 +1,5 @@
+import computeResults from "./compute-results.js";
+
 const urlParamValues = getUrlParamValues();
 const results = computeResults(urlParamValues);
 
@@ -13,32 +15,6 @@ function getUrlParamValues() {
         allowedEmissionMode: urlParams.get("allowed-emission-mode"),
         temperatureRise: urlParams.get("temperature-rise"),
         probability: urlParams.get("probability"),
-    }
-}
-
-function computeResults({
-    population,
-    emission,
-    allowedEmissionMode,
-    temperatureRise,
-    probability,
-}) {
-    return {
-        allowedEmissions: [
-            0.0062,
-            0.0060,
-            0.0058,
-            0.0056,
-            0.0055,
-            0.0053,
-            0.0051,
-            0.0049,
-            0.0047,
-            0.0045,
-            0.0043,
-            0.0005,
-        ],
-        zeroEmissionYear: 2052.8,
     }
 }
 
