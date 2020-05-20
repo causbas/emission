@@ -13,11 +13,11 @@
         <tbody>
           <tr>
             <td>Bevölkerung:</td>
-            <td><input name="population" type="number" value="693000" required></td>
+            <td><input id="population" name="population" type="number" value="693000" required></td>
           </tr>
           <tr>
             <td>Emission:</td>
-            <td><input name="emission" type="number" value="6400000" required></td>
+            <td><input id="emission" name="emission" type="number" value="6400000" required></td>
             <td>Tonnen CO2/Jahr</td>
           </tr>
           <tr>
@@ -26,21 +26,21 @@
               <div>
                 <input
                   type="radio"
-                  id="allowed-emission-population"
+                  id="allowed-emission-mode-population"
                   name="allowed-emission-mode"
                   value="population"
                   required checked
                 >
-                <label for="allowed-emission-population">Bevölkerungsanteil</label>
+                <label for="allowed-emission-mode-population">Bevölkerungsanteil</label>
               </div>
               <div>
                 <input type="radio"
-                  id="allowed-emission-proportion"
+                  id="allowed-emission-mode-emission"
                   name="allowed-emission-mode"
                   value="emission"
                   required
                 >
-                <label for="allowed-emission-proportion">Momentanen Zustand</label>
+                <label for="allowed-emission-mode-emission">Momentanen Zustand</label>
               </div>
             </td>
           </tr>
@@ -106,32 +106,32 @@
               <div>
                 <input
                   type="radio"
-                  id="probability-33"
+                  id="probability-0-33"
                   name="probability"
                   value="0.33"
                   required
                 >
-                <label for="probability-33">33</label>
+                <label for="probability-0-33">33</label>
               </div>
               <div>
                 <input
                   type="radio"
-                  id="probability-50"
+                  id="probability-0-50"
                   name="probability"
                   value="0.5"
                   required
                 >
-                <label for="probability-50">50</label>
+                <label for="probability-0-50">50</label>
               </div>
               <div>
                 <input
                   type="radio"
-                  id="probability-67"
+                  id="probability-0-67"
                   name="probability"
                   value="0.67"
                   required checked
                 >
-                <label for="probability-67">67</label>
+                <label for="probability-0-67">67</label>
               </div>
             </td>
             <td>%</td>

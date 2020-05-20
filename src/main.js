@@ -4,8 +4,9 @@ import ParameterParser from "./parameter-parser.js";
 const urlParams = new URLSearchParams(window.location.search);
 if (!urlParams.keys().next().done) {
     const urlParamValues = getUrlParamValues(urlParams);
-    const results = computeResults(urlParamValues);
+    populateHtml(urlParamValues);
 
+    const results = computeResults(urlParamValues);
     publishResults(results);
     showResults();
 }
@@ -35,6 +36,29 @@ function getUrlParamValues(urlParams) {
         temperatureRise: temperatureRise,
         probability: probability,
     }
+}
+
+function populateHtml({
+    population,
+    emission,
+    allowedEmissionMode,
+    temperatureRise,
+    probability,
+}) {
+    const [temperatureRiseId, probabilityId] =
+        [
+            ["temperature-rise", temperatureRise],
+            ["probability", probability]
+        ].map(([prefix, value]) => {
+            const suffix = value.toString().replace(".", "-");
+            return `${prefix}-${suffix}`
+        });
+
+    document.querySelector("#population").value = population;
+    document.querySelector("#emission").value = emission;
+    document.querySelector(`#allowed-emission-mode-${allowedEmissionMode}`).checked = true;
+    document.querySelector(`#${temperatureRiseId}`).checked = true;
+    document.querySelector(`#${probabilityId}`).checked = true;
 }
 
 function publishResults({ allowedEmissions, zeroEmissionYear }) {
