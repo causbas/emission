@@ -13,11 +13,30 @@
         <tbody>
           <tr>
             <td>Bevölkerung:</td>
-            <td><input id="population" name="population" type="number" value="693000" required></td>
+            <td>
+              <input
+                id="population"
+                name="population"
+                type="number"
+                min="0"
+                value="693000"
+                required
+              >
+            </td>
           </tr>
           <tr>
             <td>Emission:</td>
-            <td><input id="emission" name="emission" type="number" value="6.4" required></td>
+            <td>
+              <input
+                id="emission"
+                name="emission"
+                type="number"
+                min="0"
+                value="6.4"
+                step="0.1"
+                required
+              >
+            </td>
             <td>Mt CO2/Jahr</td>
           </tr>
           <tr>
