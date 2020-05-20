@@ -1,14 +1,16 @@
 import computeResults from "./compute-results.js";
 import ParameterParser from "./parameter-parser.js";
 
-const urlParamValues = getUrlParamValues();
-const results = computeResults(urlParamValues);
+const urlParams = new URLSearchParams(window.location.search);
+if (!urlParams.keys().next().done) {
+    const urlParamValues = getUrlParamValues(urlParams);
+    const results = computeResults(urlParamValues);
 
-publishResults(results);
-showResults();
+    publishResults(results);
+    showResults();
+}
 
-function getUrlParamValues() {
-    const urlParams = new URLSearchParams(window.location.search);
+function getUrlParamValues(urlParams) {
     const parameterParser = new ParameterParser(urlParams);
 
     const [population, emission] = ["population", "emission"]
