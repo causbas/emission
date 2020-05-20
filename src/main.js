@@ -3,7 +3,7 @@ import ParameterParser from "./parameter-parser.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 if (!urlParams.keys().next().done) {
-    const urlParamValues = getUrlParamValues(urlParams);
+    const urlParamValues = parseUrlParams(urlParams);
     populateHtml(urlParamValues);
 
     const results = computeResults(urlParamValues);
@@ -11,12 +11,17 @@ if (!urlParams.keys().next().done) {
     showResults();
 }
 
-function getUrlParamValues(urlParams) {
+function parseUrlParams(urlParams) {
     const parameterParser = new ParameterParser(urlParams);
 
-    const [population, emission] = ["population", "emission"]
-        .map(name => parameterParser.from(name).asInt().assertPositive())
-        .map(parser => parser.value);
+    const population = parameterParser.from("population")
+        .asInt()
+        .assertPositive()
+        .value;
+    const emissionMt = parameterParser.from("emission")
+        .asFloat()
+        .assertPositive()
+        .value;
     const allowedEmissionMode = parameterParser.from("allowed-emission-mode")
         .assertIsEither(["population", "emission"])
         .value;
@@ -31,7 +36,7 @@ function getUrlParamValues(urlParams) {
 
     return {
         population: population,
-        emission: emission,
+        emissionMt: emissionMt,
         allowedEmissionMode: allowedEmissionMode,
         temperatureRise: temperatureRise,
         probability: probability,
@@ -40,7 +45,7 @@ function getUrlParamValues(urlParams) {
 
 function populateHtml({
     population,
-    emission,
+    emissionMt,
     allowedEmissionMode,
     temperatureRise,
     probability,
@@ -55,7 +60,7 @@ function populateHtml({
         });
 
     document.querySelector("#population").value = population;
-    document.querySelector("#emission").value = emission;
+    document.querySelector("#emission").value = emissionMt;
     document.querySelector(`#allowed-emission-mode-${allowedEmissionMode}`).checked = true;
     document.querySelector(`#${temperatureRiseId}`).checked = true;
     document.querySelector(`#${probabilityId}`).checked = true;

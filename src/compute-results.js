@@ -1,6 +1,6 @@
 export default function computeResults({
     population,
-    emission,
+    emissionMt,
     allowedEmissionMode,
     temperatureRise,
     probability,
