@@ -21,9 +21,8 @@ function computeGermanBudget(globalBudget2020, allowedEmissionMode) {
     return globalBudget2020 * proportion;
 }
 
-function computeLocationBudget(locationEmissionMt, germanBudget) {
+function computeLocationBudget(locationEmission, germanBudget) {
     const germanEmission = computeGermanEmission();
-    const locationEmission = locationEmissionMt * 1e-3;
     const locationEmissionProportion = locationEmission / germanEmission;
 
     return germanBudget * locationEmissionProportion;
@@ -41,6 +40,28 @@ function computeGermanEmission() {
     return globalPastEmission2018 * germanEmissionProportion2017;
 }
 
+export function computeAllowedEmissions(emission, budget) {
+    const factor = 0.5;
+    const yearZero = 2019;
+    const years = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2050];
+
+    const scaledEmission = emission * factor;
+    const emissionProportion = scaledEmission / budget;
+
+    const allowedEmissions = years.map(year => {
+        const position = (year - yearZero);
+        const value = emission * (1 - emissionProportion * position);
+
+        return { year: year, value: Math.max(0, value) };
+    });
+    const zeroEmissionYear = yearZero + budget / scaledEmission;
+
+    return {
+        allowedEmissions: allowedEmissions,
+        zeroEmissionYear: zeroEmissionYear,
+    };
+}
+
 export default function computeResults({
     population,
     emissionMt,
@@ -54,24 +75,8 @@ export default function computeResults({
         .reduce((accumulator, emissionValue) => accumulator - emissionValue, globalBudget2017);
 
     const germanBudget = computeGermanBudget(globalBudget2010, allowedEmissionMode);
-    const locationBudget = computeLocationBudget(emissionMt, germanBudget);
-    console.log(locationBudget);
+    const locationEmission = emissionMt * 1e-3;
+    const locationBudget = computeLocationBudget(locationEmission, germanBudget);
 
-    return {
-        allowedEmissions: [
-            { year: 2020, value: 0.0062 },
-            { year: 2021, value: 0.0060 },
-            { year: 2022, value: 0.0058 },
-            { year: 2023, value: 0.0056 },
-            { year: 2024, value: 0.0055 },
-            { year: 2025, value: 0.0053 },
-            { year: 2026, value: 0.0051 },
-            { year: 2027, value: 0.0049 },
-            { year: 2028, value: 0.0047 },
-            { year: 2029, value: 0.0045 },
-            { year: 2030, value: 0.0043 },
-            { year: 2050, value: 0.0005 },
-        ],
-        zeroEmissionYear: 2052.8,
-    }
+    return computeAllowedEmissions(locationEmission, locationBudget);
 }
