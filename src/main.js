@@ -14,10 +14,6 @@ if (!urlParams.keys().next().done) {
 function parseUrlParams(urlParams) {
     const parameterParser = new ParameterParser(urlParams);
 
-    const population = parameterParser.from("population")
-        .asInt()
-        .assertPositive()
-        .value;
     const emissionMt = parameterParser.from("emission")
         .asFloat()
         .assertPositive()
@@ -35,7 +31,6 @@ function parseUrlParams(urlParams) {
         .value;
 
     return {
-        population: population,
         emissionMt: emissionMt,
         allowedEmissionMode: allowedEmissionMode,
         temperatureRise: temperatureRise,
@@ -44,7 +39,6 @@ function parseUrlParams(urlParams) {
 }
 
 function populateHtml({
-    population,
     emissionMt,
     allowedEmissionMode,
     temperatureRise,
@@ -59,7 +53,6 @@ function populateHtml({
             return `${prefix}-${suffix}`
         });
 
-    document.querySelector("#population").value = population;
     document.querySelector("#emission").value = emissionMt;
     document.querySelector(`#allowed-emission-mode-${allowedEmissionMode}`).checked = true;
     document.querySelector(`#${temperatureRiseId}`).checked = true;

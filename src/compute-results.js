@@ -63,7 +63,6 @@ export function computeAllowedEmissions(emission, budget) {
 }
 
 export default function computeResults({
-    population,
     emissionMt,
     allowedEmissionMode,
     temperatureRise,
