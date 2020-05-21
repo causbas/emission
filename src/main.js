@@ -67,12 +67,26 @@ function populateHtml({
 }
 
 function publishResults({ allowedEmissions, zeroEmissionYear }) {
-    const resultRowElements = document.querySelector("#results-row").children;
-    allowedEmissions.forEach((allowedEmission, i) =>
-        resultRowElements[i].innerText = allowedEmission);
+    const years = allowedEmissions.map(pair => pair.year);
+    const values = allowedEmissions
+        .map(pair => pair.value);
+
+    prependRow("#result-row-titles", years);
+    prependRow("#result-row-values", values);
 
     const zeroEmissionYearElement = document.querySelector("#zero-emission-year");
     zeroEmissionYearElement.innerText = zeroEmissionYear;
+}
+
+function prependRow(parentSelector, innerTexts) {
+    const cellElements = innerTexts.map(text => {
+        const cellElement = document.createElement("td");
+        cellElement.innerText = text;
+        return cellElement;
+    });
+
+    const parentElement = document.querySelector(parentSelector);
+    parentElement.prepend(...cellElements);
 }
 
 function showResults() {
