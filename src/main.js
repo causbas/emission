@@ -69,13 +69,19 @@ function populateHtml({
 function publishResults({ allowedEmissions, zeroEmissionYear }) {
     const years = allowedEmissions.map(pair => pair.year);
     const values = allowedEmissions
-        .map(pair => pair.value);
+        .map(pair => pair.value)
+        .map(formatResultValue);
 
     prependRow("#result-row-titles", years);
     prependRow("#result-row-values", values);
 
     const zeroEmissionYearElement = document.querySelector("#zero-emission-year");
-    zeroEmissionYearElement.innerText = zeroEmissionYear;
+    zeroEmissionYearElement.innerText = zeroEmissionYear.toPrecision(5);
+}
+
+function formatResultValue(resultValue) {
+    const resultValueMt = resultValue * 1e3;
+    return resultValueMt.toPrecision(4);
 }
 
 function prependRow(parentSelector, innerTexts) {
