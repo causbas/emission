@@ -1,12 +1,18 @@
+import VerticalLegend from "./vertical-legend.js";
+
 export default class LineChart {
     constructor(canvasElement) {
         this.context = canvasElement.getContext("2d");
         this.line = { color: "black", width: "2" };
         this.xStart = 0;
         this.yValues = [1, 0, 0.5, -1];
+
+        this.verticalLegend = new VerticalLegend(this.context);
     }
 
     draw() {
+        this.verticalLegend.draw();
+
         this.context.lineWidth = this.line.width;
         this.context.strokeStyle = this.line.color;
 

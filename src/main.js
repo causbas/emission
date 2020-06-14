@@ -1,6 +1,6 @@
 import computeResults from "./compute-results.js";
 import ParameterParser from "./parameter-parser.js";
-import LineChart from "./line-chart.js";
+import LineChart from "./line-chart/index.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 if (!urlParams.keys().next().done) {
