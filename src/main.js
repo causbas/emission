@@ -1,5 +1,6 @@
 import computeResults from "./compute-results.js";
 import ParameterParser from "./parameter-parser.js";
+import LineChart from "./line-chart.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 if (!urlParams.keys().next().done) {
@@ -70,6 +71,9 @@ function publishResults({ allowedEmissions, zeroEmissionYear }) {
 
     const zeroEmissionYearElement = document.querySelector("#zero-emission-year");
     zeroEmissionYearElement.innerText = zeroEmissionYear.toPrecision(5);
+
+    const resultCanvasElement = document.querySelector("#result-canvas");
+    new LineChart(resultCanvasElement).draw();
 }
 
 function formatResultValue(resultValue) {

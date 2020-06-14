@@ -40,7 +40,7 @@ function computeGermanEmission() {
     return globalPastEmission2018 * germanEmissionProportion2017;
 }
 
-export function computeAllowedEmissions(emission, budget) {
+function computeAllowedEmissions(emission, budget) {
     const factor = 0.5;
     const yearZero = 2019;
     const years = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2050];
