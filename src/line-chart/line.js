@@ -51,14 +51,11 @@ export default class Line {
         this._data = data;
     }
 
-    draw() {
+    draw(dimensions) {
         this._context.save();
 
-        const width = this._context.canvas.width;
-        const height = this._context.canvas.height;
-        const lineTransform = createTransform({ x: width, y: height }, this._data);
+        const lineTransform = createTransform(dimensions, this._data);
         this._context.transform(...lineTransform);
-
         createPaths(this._data, this._context);
 
         this._context.restore();

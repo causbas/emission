@@ -1,15 +1,12 @@
-const WIDTH = 40;
-
-function drawTitle(context, color, text) {
+function drawTitle(context, dimensions, text) {
     context.save();
 
     context.font = "10px sans-serif";
-    context.fillStyle = color;
+    context.fillStyle = "grey";
     context.textAlight = "center";
     context.textBaseline = "middle";
 
-    const height = context.canvas.height;
-    context.translate(WIDTH * 0.25, height * 0.5);
+    context.translate(dimensions.x * 0.25, dimensions.y * 0.5);
     context.rotate(-0.5 * Math.PI);
     context.fillText(text, 0, 0);
 
@@ -19,13 +16,10 @@ function drawTitle(context, color, text) {
 export default class VerticalLegend {
     constructor(context) {
         this.context = context;
-        this.color = "grey";
         this.title = "Y Axis";
-
-        this.width = WIDTH;
     }
 
-    draw() {
-        drawTitle(this.context, this.color, this.title);
+    draw(dimensions) {
+        drawTitle(this.context, dimensions, this.title);
     }
 }
