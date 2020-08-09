@@ -1,12 +1,11 @@
+const TITLE_FACTOR = 0.25;
+
 function drawTitle(context, dimensions, text) {
     context.save();
-
-    context.font = "10px sans-serif";
-    context.fillStyle = "grey";
-    context.textAlight = "center";
+    context.textAlign = "center";
     context.textBaseline = "middle";
 
-    context.translate(dimensions.x * 0.25, dimensions.y * 0.5);
+    context.translate(dimensions.x * TITLE_FACTOR, dimensions.y * 0.5);
     context.rotate(-0.5 * Math.PI);
     context.fillText(text, 0, 0);
 
@@ -14,12 +13,17 @@ function drawTitle(context, dimensions, text) {
 }
 
 export default class VerticalLegend {
-    constructor(context) {
-        this.context = context;
-        this.title = "Y Axis";
+    constructor(context, title = "Y Axis") {
+        this._context = context;
+        this._title = title;
     }
 
     draw(dimensions) {
-        drawTitle(this.context, dimensions, this.title);
+        this._context.save();
+        this._context.fillStyle = "grey";
+
+        drawTitle(this._context, dimensions, this._title);
+
+        this._context.restore();
     }
 }
