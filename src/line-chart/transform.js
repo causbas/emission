@@ -6,7 +6,7 @@ function computeExtrema(values) {
     const [minValue, maxValue] = values.reduce(
         ([minValue, maxValue], currentValue) =>
             [Math.min(minValue, currentValue), Math.max(maxValue, currentValue)],
-        [Number.MAX_VALUE, Number.MIN_VALUE]
+        [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY]
     );
 
     return { min: minValue, max: maxValue };
