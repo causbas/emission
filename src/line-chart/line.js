@@ -1,31 +1,4 @@
-function computeRange({ max, min }) {
-    return max - min;
-}
-
-function computeExtrema(values) {
-    const [minValue, maxValue] = values.reduce(
-        ([minValue, maxValue], currentValue) =>
-            [Math.min(minValue, currentValue), Math.max(maxValue, currentValue)],
-        [Number.MAX_VALUE, Number.MIN_VALUE]
-    );
-
-    return { min: minValue, max: maxValue };
-}
-
-function createTransform(dimensions, data) {
-    const values = {
-        x: data.map(([xValue, yValue]) => xValue),
-        y: data.map(([xValue, yValue]) => yValue),
-    };
-
-    const [xExtrema, yExtrema] = [values.x, values.y].map(values => computeExtrema(values));
-    const [xRange, yRange] = [xExtrema, yExtrema].map(computeRange);
-
-    const scale = { x: dimensions.x / xRange, y: dimensions.y / yRange };
-    const offset = { x: -xExtrema.min * scale.x, y: -yExtrema.min * scale.y };
-
-    return [scale.x, 0, 0, scale.y, offset.x, offset.y];
-}
+import Transform from "./transform.js";
 
 function createPaths(data, context) {
     context.beginPath();
@@ -54,8 +27,8 @@ export default class Line {
     draw(dimensions) {
         this._context.save();
 
-        const lineTransform = createTransform(dimensions, this._data);
-        this._context.transform(...lineTransform);
+        const lineTransform = new Transform(dimensions).scaleTo(this._data);
+        this._context.transform(...lineTransform.toArray());
         createPaths(this._data, this._context);
 
         this._context.restore();
