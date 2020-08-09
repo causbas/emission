@@ -38,6 +38,15 @@ export default class Transform {
         return new Transform(scale, offset);
     }
 
+    mirrorHorizontally() {
+        const scale = { ...this._scale };
+        const offset = { ...this._offset };
+        scale.y = -scale.y;
+        offset.y = offset.y - scale.y;
+
+        return new Transform(scale, offset);
+    }
+
     toArray() {
         return [this._scale.x, 0, 0, this._scale.y, this._offset.x, this._offset.y];
     }

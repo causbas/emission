@@ -27,7 +27,9 @@ export default class Line {
     draw(dimensions) {
         this._context.save();
 
-        const lineTransform = new Transform(dimensions).scaleTo(this._data);
+        const lineTransform = new Transform(dimensions)
+            .mirrorHorizontally()
+            .scaleTo(this._data);
         this._context.transform(...lineTransform.toArray());
         createPaths(this._data, this._context);
 
