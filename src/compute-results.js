@@ -43,21 +43,24 @@ function computeGermanEmission() {
 function computeAllowedEmissions(emission, budget) {
     const factor = 0.5;
     const yearZero = 2019;
-    const years = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2050];
+    const years = [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030];
 
     const scaledEmission = emission * factor;
     const emissionProportion = scaledEmission / budget;
 
-    const allowedEmissions = years.map(year => {
-        const position = (year - yearZero);
-        const value = emission * (1 - emissionProportion * position);
+    const [allowedEmissions, allowedEmissions2050] = [years, [2050]].map(
+        years => years.map(year => {
+            const position = (year - yearZero);
+            const value = emission * (1 - emissionProportion * position);
 
-        return { year: year, value: Math.max(0, value) };
-    });
+            return { year: year, value: Math.max(0, value) };
+        })
+    );
     const zeroEmissionYear = yearZero + budget / scaledEmission;
 
     return {
         allowedEmissions: allowedEmissions,
+        allowedEmissions2050: allowedEmissions2050,
         zeroEmissionYear: zeroEmissionYear,
     };
 }

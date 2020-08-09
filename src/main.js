@@ -8,7 +8,8 @@ if (!urlParams.keys().next().done) {
     populateHtml(urlParamValues);
 
     const results = computeResults(urlParamValues);
-    publishResults(results);
+    publishTableResults(results);
+    publishChartResults(results);
     showResults();
 }
 
@@ -60,9 +61,10 @@ function populateHtml({
     document.querySelector(`#${probabilityId}`).checked = true;
 }
 
-function publishResults({ allowedEmissions, zeroEmissionYear }) {
-    const years = allowedEmissions.map(pair => pair.year);
-    const values = allowedEmissions
+function publishTableResults({ allowedEmissions, allowedEmissions2050, zeroEmissionYear }) {
+    const joinedEmissions = [...allowedEmissions, ... allowedEmissions2050];
+    const years = joinedEmissions.map(pair => pair.year);
+    const values = joinedEmissions
         .map(pair => pair.value)
         .map(formatResultValue);
 
@@ -71,9 +73,16 @@ function publishResults({ allowedEmissions, zeroEmissionYear }) {
 
     const zeroEmissionYearElement = document.querySelector("#zero-emission-year");
     zeroEmissionYearElement.innerText = zeroEmissionYear.toPrecision(5);
+}
+
+function publishChartResults({ allowedEmissions, zeroEmissionYear }) {
+    const chartData = allowedEmissions.map(
+        ({ year, value }) => [year, value]
+    );
+    chartData.push([zeroEmissionYear, 0]);
 
     const resultCanvasElement = document.querySelector("#result-canvas");
-    new LineChart(resultCanvasElement).draw();
+    new LineChart(resultCanvasElement, chartData).draw();
 }
 
 function formatResultValue(resultValue) {
