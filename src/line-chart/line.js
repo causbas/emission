@@ -29,7 +29,7 @@ export default class Line {
 
         const lineTransform = new Transform(dimensions)
             .mirrorHorizontally()
-            .scaleTo(this._data);
+            .scaleToData(this._data);
         this._context.transform(...lineTransform.toArray());
         createPaths(this._data, this._context);
 

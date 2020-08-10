@@ -1,8 +1,11 @@
+const X_AXIS = "x";
+const Y_AXIS = "y";
+
 function computeRange({ max, min }) {
     return max - min;
 }
 
-function computeExtrema(values) {
+function computeInterval(values) {
     const [minValue, maxValue] = values.reduce(
         ([minValue, maxValue], currentValue) =>
             [Math.min(minValue, currentValue), Math.max(maxValue, currentValue)],
@@ -18,22 +21,30 @@ export default class Transform {
         this._offset = offset || { x: 0, y: 0 };
     }
 
-    scaleTo(data) {
-        const [xValues, yValues] = [
-            data.map(([xValue, yValue]) => xValue),
-            data.map(([xValue, yValue]) => yValue),
-        ];
-
-        const [xExtrema, yExtrema] = [xValues, yValues].map(
-            values => computeExtrema(values)
-        );
-        const [xRange, yRange] = [xExtrema, yExtrema].map(computeRange);
-
-        const scale = { x: this._scale.x / xRange, y: this._scale.y / yRange };
-        const offset = {
-            x: -xExtrema.min * scale.x + this._offset.x,
-            y: -yExtrema.min * scale.y + this._offset.y,
+    scaleToData(data) {
+        const axesValues = {
+            x: data.map(([xValue, yValue]) => xValue),
+            y: data.map(([xValue, yValue]) => yValue),
         };
+
+        return Object.keys(axesValues).reduce(
+            (transform, axis) => transform.scaleToValues(axesValues[axis], axis),
+            this,
+        );
+    }
+
+    scaleToValues(values, axis) {
+        const interval = computeInterval(values);
+        return this.scaleToInterval(interval, axis);
+    }
+
+    scaleToInterval(interval, axis) {
+        const scale = { ...this._scale };
+        const offset = { ...this._offset };
+
+        const range = computeRange(interval);
+        scale[axis] = scale[axis] / range;
+        offset[axis] = -interval.min * scale[axis] + offset[axis];
 
         return new Transform(scale, offset);
     }
@@ -41,6 +52,7 @@ export default class Transform {
     mirrorHorizontally() {
         const scale = { ...this._scale };
         const offset = { ...this._offset };
+
         scale.y = -scale.y;
         offset.y = offset.y - scale.y;
 
