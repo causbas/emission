@@ -22,7 +22,7 @@ export default class Line extends AbstractPathShape {
     }
 
     _applyStrokeSettings() {
-        this._context.lineWidth = 2;
+        this._context.lineWidth = 3;
         this._context.strokeStyle = "black";
     }
 }

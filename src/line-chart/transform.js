@@ -72,6 +72,14 @@ export default class Transform {
         this._offset = new Offset(offset);
     }
 
+    get scale() {
+        return this._scale;
+    }
+
+    get offset() {
+        return this._offset;
+    }
+
     scaleToData(data) {
         const axesValues = {
             x: data.map(([xValue, yValue]) => xValue),
