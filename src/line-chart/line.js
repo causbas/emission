@@ -1,4 +1,4 @@
-import Transform from "./transform.js";
+import AbstractPathShape from "./abstract-path-shape.js";
 
 function createPaths(data, context) {
     context.beginPath();
@@ -8,33 +8,21 @@ function createPaths(data, context) {
     );
 }
 
-function strokePath(context) {
-    context.save();
-
-    context.lineWidth = 2;
-    context.strokeStyle = "black";
-    context.stroke();
-
-    context.restore();
-}
-
-export default class Line {
+export default class Line extends AbstractPathShape {
     constructor(context, data) {
-        this._context = context;
-        this._data = data;
+        super(context, data);
     }
 
     draw(dimensions) {
-        this._context.save();
+        super.draw(dimensions);
+    }
 
-        const lineTransform = new Transform(dimensions)
-            .mirrorHorizontally()
-            .scaleToData(this._data);
-        this._context.transform(...lineTransform.toArray());
+    _drawWithinContext() {
         createPaths(this._data, this._context);
+    }
 
-        this._context.restore();
-
-        strokePath(this._context);
+    _applyStrokeSettings() {
+        this._context.lineWidth = 2;
+        this._context.strokeStyle = "black";
     }
 }
