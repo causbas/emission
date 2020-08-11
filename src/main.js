@@ -1,6 +1,7 @@
 import computeResults from "./compute-results.js";
 import ParameterParser from "./parameter-parser.js";
 import LineChart from "./line-chart/index.js";
+import formatValue from "./format-value.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 if (!urlParams.keys().next().done) {
@@ -66,7 +67,7 @@ function publishTableResults({ allowedEmissions, allowedEmissions2050, zeroEmiss
     const years = joinedEmissions.map(pair => pair.year);
     const values = joinedEmissions
         .map(pair => pair.value)
-        .map(formatResultValue);
+        .map(value => formatValue(value, 4));
 
     prependRow("#result-row-titles", years);
     prependRow("#result-row-values", values);
@@ -83,11 +84,6 @@ function publishChartResults({ allowedEmissions, zeroEmissionYear }) {
 
     const resultCanvasElement = document.querySelector("#result-canvas");
     new LineChart(resultCanvasElement, chartData).draw();
-}
-
-function formatResultValue(resultValue) {
-    const resultValueMt = resultValue * 1e3;
-    return resultValueMt.toPrecision(4);
 }
 
 function prependRow(parentSelector, innerTexts) {
