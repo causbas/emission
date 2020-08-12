@@ -1,6 +1,5 @@
 import VerticalLegend from "./vertical-legend.js";
-import Grid from "./grid.js";
-import Line from "./line.js";
+import { Grid, Line } from "./path-shapes/index.js";
 
 const TOP_OFFSET = 20;
 const LABELS_SIZE = 40;
