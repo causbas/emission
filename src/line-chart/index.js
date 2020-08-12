@@ -1,4 +1,4 @@
-import YAxisLabels from "./y-axis-labels.js";
+import { YAxisLabels } from "./axis-labels/index.js";
 import { Grid, Line } from "./path-shapes/index.js";
 
 const TOP_OFFSET = 20;
