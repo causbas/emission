@@ -31,7 +31,7 @@ function drawValues(context, dimensions, data) {
     context.restore();
 }
 
-export default class VerticalLegend {
+export default class YAxisLabels {
     constructor(context, data = [], title = "Y Axis") {
         this._context = context;
         this._data = data;
