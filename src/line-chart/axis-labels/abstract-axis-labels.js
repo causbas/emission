@@ -17,6 +17,8 @@ export default class AbstractAxisLabels {
 
     draw(dimensions) {
         this._context.save();
+        const margin = this.computeMargin();
+        this._context.translate(margin.x, margin.y);
         this._context.fillStyle = "grey";
         this._context.textBaseline = "middle";
 
@@ -24,6 +26,10 @@ export default class AbstractAxisLabels {
         this._drawValues(dimensions);
 
         this._context.restore();
+    }
+
+    computeMargin() {
+        throw new Error("must be implemented in subclass");
     }
 
     _drawTitle(dimensions) {

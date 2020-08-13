@@ -1,8 +1,26 @@
 import { XAxisLabels, YAxisLabels } from "./axis-labels/index.js";
 import { Grid, Line } from "./path-shapes/index.js";
 
-const TOP_OFFSET = 20;
 const LABELS_SIZE = 40;
+
+function mergeMargins(margins) {
+    return margins.reduce(
+        (mergedMargin, margin) => {
+            ["top", "right", "bottom", "left"].forEach(side =>
+                mergedMargin[side] = Math.max(mergedMargin[side], margin[side])
+            )
+            return mergedMargin;
+        },
+        { top: 0, right: 0, bottom: 0, left: 0 },
+    );
+}
+
+function computeGraphDimensions(canvas, margin) {
+    return {
+        x: canvas.width - LABELS_SIZE - margin.right,
+        y: canvas.height - LABELS_SIZE - margin.top,
+    };
+}
 
 export default class LineChart {
     constructor(canvasElement, data = [[0, 1], [10, 0], [20, 0.5], [30, -1]]) {
@@ -14,23 +32,25 @@ export default class LineChart {
     }
 
     draw() {
-        const graphDimensions = {
-            x: this._context.canvas.width - LABELS_SIZE,
-            y: this._context.canvas.height - LABELS_SIZE - TOP_OFFSET,
-        };
+        const mergedMargin = mergeMargins(
+            [this._xAxisLabels, this._yAxisLabels].map(labels => labels.computeMargin())
+        );
+        const graphDimensions = computeGraphDimensions(
+            this._context.canvas, mergedMargin
+        );
 
         this._context.save();
-        this._context.translate(LABELS_SIZE, TOP_OFFSET + graphDimensions.y);
+        this._context.translate(LABELS_SIZE, mergedMargin.top + graphDimensions.y);
         this._xAxisLabels.draw({ x: graphDimensions.x, y: LABELS_SIZE });
         this._context.restore();
 
         this._context.save();
-        this._context.translate(0, TOP_OFFSET);
+        this._context.translate(0, mergedMargin.top);
         this._yAxisLabels.draw({ x: LABELS_SIZE, y: graphDimensions.y });
         this._context.restore();
 
         this._context.save();
-        this._context.translate(LABELS_SIZE, TOP_OFFSET);
+        this._context.translate(LABELS_SIZE, mergedMargin.top);
         this._grid.draw(graphDimensions);
         this._line.draw(graphDimensions);
         this._context.restore();

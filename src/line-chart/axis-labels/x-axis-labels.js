@@ -2,8 +2,15 @@ import AbstractAxisLabels from "./abstract-axis-labels.js";
 
 const TITLE_OFFSET = 0.75;
 const DATA_OFFSET = 0.25;
+const HORIZONTAL_MARGIN_EX = 2.5;
 
 export default class XAxisLabels extends AbstractAxisLabels {
+    computeMargin() {
+        const oneEx = this._context.measureText("x").width;
+        const horizontalMargin = oneEx * HORIZONTAL_MARGIN_EX;
+        return { top: 0, right: horizontalMargin, bottom: 0, left: horizontalMargin };
+    }
+
     _applyTitleTransform(dimensions) {
         this._context.translate(dimensions.x * 0.5, dimensions.y * TITLE_OFFSET);
     }
