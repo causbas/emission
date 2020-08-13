@@ -1,4 +1,4 @@
-import Transform from "/src/line-chart/transform.js";
+import Transform from "../transform.js";
 
 export default class AbstractPathShape {
     constructor(context, data) {

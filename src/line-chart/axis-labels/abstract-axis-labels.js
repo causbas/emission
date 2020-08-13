@@ -1,5 +1,5 @@
-import Transform from "/src/line-chart/transform.js";
-import formatValue from "/src/format-value.js";
+import Transform from "../transform.js";
+import formatValue from "../../format-value.js";
 
 function extractTextCoordinates(axis, valueCoordinates) {
     return {
