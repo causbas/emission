@@ -1,7 +1,7 @@
 import AbstractAxisLabels from "./abstract-axis-labels.js";
 
-const TITLE_OFFSET = 0.75;
-const DATA_OFFSET = 0.25;
+const TITLE_OFFSET = 0.8;
+const DATA_OFFSET = 0.35;
 const HORIZONTAL_MARGIN_EX = 2.5;
 
 export default class XAxisLabels extends AbstractAxisLabels {

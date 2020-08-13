@@ -1,7 +1,7 @@
 import { XAxisLabels, YAxisLabels } from "./axis-labels/index.js";
 import { Grid, Line } from "./path-shapes/index.js";
 
-const LABELS_SIZE = 40;
+const LABELS_SIZE = { x: 40, y: 30 };
 
 function mergeMargins(margins) {
     return margins.reduce(
@@ -17,8 +17,8 @@ function mergeMargins(margins) {
 
 function computeGraphDimensions(canvas, margin) {
     return {
-        x: canvas.width - LABELS_SIZE - margin.right,
-        y: canvas.height - LABELS_SIZE - margin.top,
+        x: canvas.width - LABELS_SIZE.x - margin.right,
+        y: canvas.height - LABELS_SIZE.y - margin.top,
     };
 }
 
@@ -40,17 +40,17 @@ export default class LineChart {
         );
 
         this._context.save();
-        this._context.translate(LABELS_SIZE, mergedMargin.top + graphDimensions.y);
-        this._xAxisLabels.draw({ x: graphDimensions.x, y: LABELS_SIZE });
+        this._context.translate(LABELS_SIZE.x, mergedMargin.top + graphDimensions.y);
+        this._xAxisLabels.draw({ x: graphDimensions.x, y: LABELS_SIZE.y });
         this._context.restore();
 
         this._context.save();
         this._context.translate(0, mergedMargin.top);
-        this._yAxisLabels.draw({ x: LABELS_SIZE, y: graphDimensions.y });
+        this._yAxisLabels.draw({ x: LABELS_SIZE.x, y: graphDimensions.y });
         this._context.restore();
 
         this._context.save();
-        this._context.translate(LABELS_SIZE, mergedMargin.top);
+        this._context.translate(LABELS_SIZE.x, mergedMargin.top);
         this._grid.draw(graphDimensions);
         this._line.draw(graphDimensions);
         this._context.restore();
