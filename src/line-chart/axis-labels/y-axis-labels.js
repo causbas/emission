@@ -3,14 +3,12 @@ import formatValue from "../../format-value.js";
 
 const TITLE_OFFSET = 0.25;
 const DATA_OFFSET = 0.5;
-const VERTICAL_MARGIN_EM = 1;
+const VERTICAL_MARGIN_EX = 1.5;
 
 export default class YAxisLabels extends AbstractAxisLabels {
     computeMargin() {
-        const zeroMeasure = this._context.measureText("0");
-        const verticalMargin = (
-            zeroMeasure.actualBoundingBoxAscent + zeroMeasure.actualBoundingBoxDescent
-        ) * VERTICAL_MARGIN_EM;
+        const oneEx = this._context.measureText("x").width;
+        const verticalMargin = oneEx * VERTICAL_MARGIN_EX;
         return { top: verticalMargin , right: 0, bottom: verticalMargin, left: 0 };
     }
 
