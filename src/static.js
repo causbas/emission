@@ -50,7 +50,7 @@ const germanProportions = { year: 2017, values: [
     { mode: "emission", value: 0.0217 },
     { mode: "population", value: 0.011714285714286 },
 ]};
-const germanPopulation = { year: 2017, value: 82_792_400 };
+const germanPopulation = { year: 2017, value: 82792400 };
 
 export {
     globalRemainingBudget,
